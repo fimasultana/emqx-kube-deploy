@@ -1,0 +1,24 @@
+apiVersion: apps.emqx.io/v2beta1
+kind: EMQX
+metadata:
+  name: emqx
+spec:
+  image: "emqx:5.1"
+  coreTemplate:
+    spec:
+      volumeClaimTemplates:
+      ## more information about storage classes: https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes#storageclasses
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 10Gi
+        accessModes:
+        - ReadWriteOnce
+  dashboardServiceTemplate:
+    spec:
+      ## more information about load balancer: https://cloud.google.com/kubernetes-engine/docs/how-to/internal-load-balancing
+      type: LoadBalancer
+  listenersServiceTemplate:
+    spec:
+      ## more information about load balancer: https://cloud.google.com/kubernetes-engine/docs/how-to/internal-load-balancing
+      type: LoadBalancer
